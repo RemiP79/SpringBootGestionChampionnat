@@ -14,6 +14,13 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
+
+    @GetMapping("/list")
+    public String listTeams(Model model) {
+        List<Team> teamList = teamService.recupererTeams();
+        model.addAttribute("teamList", teamList);
+        return "teamList";
+    }
     // Affichage public de la fiche d'une équipe
     @GetMapping("/fiche")
     public String fiche(@RequestParam Integer id, Model model) {

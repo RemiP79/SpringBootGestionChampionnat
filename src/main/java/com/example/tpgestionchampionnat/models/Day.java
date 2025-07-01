@@ -56,4 +56,8 @@ public class Day {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public List<Game> getGames() {
+        return games;
+    }
 }

@@ -19,4 +19,7 @@ public class TeamChampionship {
     private Team team;
 
     // Getters et setters
+    public Team getTeam() {
+        return team;
+    }
 }

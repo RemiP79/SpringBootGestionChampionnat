@@ -68,4 +68,8 @@ public class Game {
     public Game() {
 
     }
+
+    public Day getDay() {
+        return day;
+    }
 }

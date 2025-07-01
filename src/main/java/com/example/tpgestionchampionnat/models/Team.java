@@ -176,5 +176,13 @@ public class Team {
 
     public Team() {
     }
+
+    public List<Game> getGamesAsTeam1() {
+        return gamesAsTeam1;
+    }
+
+    public List<Game> getGamesAsTeam2() {
+        return gamesAsTeam2;
+    }
 }
 

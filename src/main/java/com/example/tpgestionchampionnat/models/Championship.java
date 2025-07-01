@@ -144,4 +144,12 @@ public class Championship {
 
     public Championship() {
     }
+
+    public List<TeamChampionship> getTeamChampionships() {
+        return teamChampionships;
+    }
+
+    public List<Day> getDays() {
+        return days;
+    }
 }
