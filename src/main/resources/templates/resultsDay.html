@@ -5,28 +5,30 @@
     <title>Résultats de la journée</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="max-w-3xl mx-auto mt-10 bg-white rounded-lg shadow-lg p-8">
-        <h1 class="text-3xl font-bold text-blue-700 mb-6" th:text="'Résultats : ' + ${championship.name} + ' - Journée ' + ${day.number}">Résultats</h1>
-        <table class="min-w-full bg-white border border-gray-200">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">Équipe 1</th>
-                    <th class="py-2 px-4 border-b">Score</th>
-                    <th class="py-2 px-4 border-b">Équipe 2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="game : ${games}">
-                    <td class="py-2 px-4 border-b" th:text="${game.team1.name}">Équipe 1</td>
-                    <td class="py-2 px-4 border-b" th:text="${game.team1Point} + ' - ' + ${game.team2Point}">Score</td>
-                    <td class="py-2 px-4 border-b" th:text="${game.team2.name}">Équipe 2</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="mt-8">
-            <a href="/championship/list" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Retour à la liste</a>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700" th:text="'Résultats : ' + ${championship.name} + ' - Journée ' + ${day.number}">Résultats</h1>
+        </header>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-100">
+                        <th class="py-2 px-4 border-b">Équipe 1</th>
+                        <th class="py-2 px-4 border-b">Score</th>
+                        <th class="py-2 px-4 border-b">Équipe 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="game : ${games}" class="hover:bg-blue-50">
+                        <td class="py-2 px-4 border-b font-semibold text-blue-700" th:text="${game.team1.name}">Équipe 1</td>
+                        <td class="py-2 px-4 border-b" th:text="${game.team1Point} + ' - ' + ${game.team2Point}">Score</td>
+                        <td class="py-2 px-4 border-b font-semibold text-blue-700" th:text="${game.team2.name}">Équipe 2</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
+    </main>
 </body>
 </html> 

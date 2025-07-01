@@ -7,31 +7,34 @@
     <!-- Intégration Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow-lg p-8">
-        <div th:if="${team == null}">
-            <h1 class="text-2xl text-red-600">Équipe introuvable</h1>
-            <a href="/team/list" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mt-4">Retour à la liste</a>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700">Fiche équipe</h1>
+            <a href="/team/list" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Retour à la liste</a>
+        </header>
+        <div class="bg-white rounded-2xl shadow p-8 max-w-2xl mx-auto">
+            <div th:if="${team == null}">
+                <h1 class="text-2xl text-red-600">Équipe introuvable</h1>
+            </div>
+            <div th:if="${team != null}">
+                <h1 class="text-3xl font-bold text-blue-700 mb-6" th:text="${team.name}">Nom de l'équipe</h1>
+                <div class="mb-4">
+                    <span class="font-semibold text-gray-700">Stade :</span>
+                    <span th:text="${team.stadium != null ? team.stadium.name : 'Non renseigné'}">Nom du stade</span>
+                </div>
+                <div class="mb-4">
+                    <span class="font-semibold text-gray-700">Président de la team :</span>
+                    <span th:text="${team.president}">Président</span>
+                </div>
+                <div class="mb-4">
+                    <span class="font-semibold text-gray-700">Entraîneur :</span>
+                    <span th:text="${team.coach}">Nom de l'entraîneur</span>
+                </div>
+                <!-- Ajoute ici d'autres informations si besoin -->
+            </div>
         </div>
-        <div th:if="${team != null}">
-            <h1 class="text-3xl font-bold text-blue-700 mb-6" th:text="${team.name}">Nom de l'équipe</h1>
-            <div class="mb-4">
-                <span class="font-semibold text-gray-700">Stade :</span>
-                <span th:text="${team.stadium != null ? team.stadium.name : 'Non renseigné'}">Nom du stade</span>
-            </div>
-            <div class="mb-4">
-                <span class="font-semibold text-gray-700">Président de la team :</span>
-                <span th:text="${team.president}">Président</span>
-            </div>
-            <div class="mb-4">
-                <span class="font-semibold text-gray-700">Entraîneur :</span>
-                <span th:text="${team.coach}">Nom de l'entraîneur</span>
-            </div>
-            <!-- Ajoute ici d'autres informations si besoin -->
-            <div class="mt-8">
-                <a href="/team/list" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Retour à la liste</a>
-            </div>
-        </div>
-    </div>
+    </main>
 </body>
 </html>

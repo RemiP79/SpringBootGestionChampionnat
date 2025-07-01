@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Journées du championnat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow-lg p-8">
+        <h1 class="text-3xl font-bold text-blue-700 mb-6" th:text="'Journées : ' + ${championship.name}">Journées</h1>
+        <ul class="space-y-4">
+            <li th:each="day : ${days}" class="flex items-center justify-between">
+                <span class="text-lg font-semibold" th:text="'Journée ' + ${day.number}">Journée</span>
+                <a th:href="@{'/championship/results'(idChampionship=${championship.id},idDay=${day.id})}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Voir résultats</a>
+            </li>
+        </ul>
+        <div class="mt-8">
+            <a href="/championship/list" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Retour aux championnats</a>
+        </div>
+    </div>
+</body>
+</html> 

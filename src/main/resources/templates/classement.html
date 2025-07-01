@@ -5,34 +5,39 @@
     <title>Classement du championnat</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="max-w-3xl mx-auto mt-10 bg-white rounded-lg shadow-lg p-8">
-        <h1 class="text-3xl font-bold text-blue-700 mb-6" th:text="'Classement : ' + ${championship.name}">Classement</h1>
-        <table class="min-w-full bg-white border border-gray-200">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">Rang</th>
-                    <th class="py-2 px-4 border-b">Équipe</th>
-                    <th class="py-2 px-4 border-b">Points</th>
-                    <th class="py-2 px-4 border-b">Victoires</th>
-                    <th class="py-2 px-4 border-b">Nuls</th>
-                    <th class="py-2 px-4 border-b">Défaites</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="stat,iter : ${classement}">
-                    <td class="py-2 px-4 border-b" th:text="${iter.index + 1}">1</td>
-                    <td class="py-2 px-4 border-b" th:text="${stat.team.name}">Équipe</td>
-                    <td class="py-2 px-4 border-b" th:text="${stat.points}">0</td>
-                    <td class="py-2 px-4 border-b" th:text="${stat.victoires}">0</td>
-                    <td class="py-2 px-4 border-b" th:text="${stat.nuls}">0</td>
-                    <td class="py-2 px-4 border-b" th:text="${stat.defaites}">0</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="mt-8">
-            <a href="/championship/list" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Retour à la liste</a>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700" th:text="'Classement : ' + ${championship.name}">Classement</h1>
+            <a th:href="@{'/championship/jours'(idChampionship=${championship.id})}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Voir les journées</a>
+        </header>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-100">
+                        <th class="py-2 px-4 border-b">Rang</th>
+                        <th class="py-2 px-4 border-b">Équipe</th>
+                        <th class="py-2 px-4 border-b">Points</th>
+                        <th class="py-2 px-4 border-b">Victoires</th>
+                        <th class="py-2 px-4 border-b">Nuls</th>
+                        <th class="py-2 px-4 border-b">Défaites</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="stat,iter : ${classement}" class="hover:bg-blue-50">
+                        <td class="py-2 px-4 border-b" th:text="${iter.index + 1}">1</td>
+                        <td class="py-2 px-4 border-b font-semibold text-blue-700">
+                            <a th:href="@{'/team/fiche'(id=${stat.team.id})}" th:text="${stat.team.name}" class="hover:underline"></a>
+                        </td>
+                        <td class="py-2 px-4 border-b" th:text="${stat.points}">0</td>
+                        <td class="py-2 px-4 border-b" th:text="${stat.victoires}">0</td>
+                        <td class="py-2 px-4 border-b" th:text="${stat.nuls}">0</td>
+                        <td class="py-2 px-4 border-b" th:text="${stat.defaites}">0</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
+    </main>
 </body>
 </html> 

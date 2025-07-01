@@ -147,4 +147,12 @@ public class ChampionshipController {
     public String home() {
         return "index";
     }
+
+    @GetMapping("/jours")
+    public String joursChampionnat(@RequestParam Integer idChampionship, Model model) {
+        Championship championship = championshipService.recupererChampionship(idChampionship);
+        model.addAttribute("championship", championship);
+        model.addAttribute("days", championship.getDays());
+        return "joursChampionnat";
+    }
 }
