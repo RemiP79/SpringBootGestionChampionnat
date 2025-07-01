@@ -14,8 +14,33 @@
         </header>
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-white rounded-2xl shadow p-6">
-                <h2 class="text-xl font-semibold mb-4 text-blue-700">Championnat en cours</h2>
-                <p class="text-gray-600">Consultez les classements, résultats et informations sur les championnats en un clic.</p>
+                <h2 class="text-xl font-semibold mb-4 text-blue-700">Classement (Top 5)</h2>
+                <div th:if="${classement != null}">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <thead>
+                            <tr class="bg-blue-100">
+                                <th class="py-2 px-4 border-b">Rang</th>
+                                <th class="py-2 px-4 border-b">Équipe</th>
+                                <th class="py-2 px-4 border-b">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="stat,iter : ${classement}" th:if="${iter.index} < 5" class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b" th:text="${iter.index + 1}">1</td>
+                                <td class="py-2 px-4 border-b font-semibold text-blue-700">
+                                    <a th:href="@{'/team/fiche'(id=${stat.team.id})}" th:text="${stat.team.name}" class="hover:underline"></a>
+                                </td>
+                                <td class="py-2 px-4 border-b" th:text="${stat.points}">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 text-right">
+                        <a th:href="@{'/championship/classement'(idChampionship=${championship.id})}" class="text-blue-600 hover:underline font-semibold">Voir classement complet</a>
+                    </div>
+                </div>
+                <div th:if="${classement == null}">
+                    <p class="text-gray-500">Aucun championnat ou classement disponible.</p>
+                </div>
             </div>
             <div class="bg-white rounded-2xl shadow p-6">
                 <h2 class="text-xl font-semibold mb-4 text-blue-700">Prochaines rencontres</h2>
