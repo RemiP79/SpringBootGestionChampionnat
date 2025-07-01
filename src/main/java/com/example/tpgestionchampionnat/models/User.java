@@ -30,6 +30,9 @@ public class User {
     @NotNull(message =  "le champ password ne peut pas être null")
     private  String password;
 
+    private String username;
+    private String role;
+
     @Temporal(value = TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat()
@@ -79,8 +82,28 @@ public class User {
     protected void onCreate() {
         creationDate = LocalDate.now();
     }
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public User(String firstName, String lastName, String email, String password) {

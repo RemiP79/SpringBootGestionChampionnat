@@ -39,16 +39,26 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/inscription", "/home", "/login", "/static/css/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(
+                                "/", "/inscription", "/home", "/login", "/static/css/**",
+                                "/championship/list", "/championship/classement", "/championship/results", "/championship/jours",
+                                "/team/list", "/team/fiche",
+                                "/resultsDay", "/classement", "/joursChampionnat"
+                        ).permitAll()
+                        .requestMatchers(
+                                "/championship/admin/**", "/championship/admin", "/championship/admin/add", "/championship/admin/edit", "/championship/admin/delete",
+                                "/team/admin/**", "/team/admin", "/team/admin/add", "/team/admin/edit", "/team/admin/delete",
+                                "/game/admin/**", "/game/admin", "/game/admin/add", "/game/admin/edit", "/game/admin/delete"
+                        ).authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/home")
+                        .logoutSuccessUrl("/")
                         .permitAll()
                 );
 

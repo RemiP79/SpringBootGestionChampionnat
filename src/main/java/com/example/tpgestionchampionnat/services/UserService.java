@@ -12,4 +12,6 @@ public interface UserService {
     User recupererMembre(Long id);
 
     List<User> recupererTousLesMembres();
+    
+    void supprimerMembre(Long id);
 }

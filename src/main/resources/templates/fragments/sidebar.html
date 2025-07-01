@@ -12,6 +12,34 @@
         <a href="/team/list" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
             <span class="material-icons mr-2">groups</span> Équipes
         </a>
+        
+        <!-- Section Administration (visible uniquement pour les utilisateurs connectés) -->
+        <div sec:authorize="isAuthenticated()" class="pt-6 border-t border-gray-200">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Administration</h3>
+            <div class="space-y-2">
+                <a href="/championship/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Championnats
+                </a>
+                <a href="/team/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Équipes
+                </a>
+                <a href="/day/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Journées
+                </a>
+                <a href="/stadium/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Stades
+                </a>
+                <a href="/country/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Pays
+                </a>
+                <a href="/teamchampionship/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Équipes/Championnat
+                </a>
+                <a href="/users/admin" class="flex items-center text-gray-700 hover:text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition">
+                    <span class="material-icons mr-2">admin_panel_settings</span> Utilisateurs
+                </a>
+            </div>
+        </div>
     </nav>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </aside> 

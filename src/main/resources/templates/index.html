@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Accueil - Gestion Championnat</title>
@@ -10,7 +10,13 @@
     <main class="flex-1 p-10">
         <header class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-blue-700">Bienvenue !</h1>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="w-12 h-12 rounded-full shadow">
+            <div class="flex items-center space-x-4">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="w-12 h-12 rounded-full shadow">
+                <a sec:authorize="!isAuthenticated()" href="/login" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold">Connexion</a>
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="inline">
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition font-semibold">Déconnexion</button>
+                </form>
+            </div>
         </header>
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-white rounded-2xl shadow p-6">

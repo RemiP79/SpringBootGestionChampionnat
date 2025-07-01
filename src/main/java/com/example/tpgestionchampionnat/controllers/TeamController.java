@@ -1,7 +1,11 @@
 package com.example.tpgestionchampionnat.controllers;
 
 import com.example.tpgestionchampionnat.models.Team;
+import com.example.tpgestionchampionnat.models.Country;
+import com.example.tpgestionchampionnat.models.Stadium;
 import com.example.tpgestionchampionnat.services.TeamService;
+import com.example.tpgestionchampionnat.services.CountryService;
+import com.example.tpgestionchampionnat.services.StadiumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +17,12 @@ import java.util.List;
 public class TeamController {
     @Autowired
     private TeamService teamService;
+    
+    @Autowired
+    private CountryService countryService;
 
+    @Autowired
+    private StadiumService stadiumService;
 
     @GetMapping("/list")
     public String listTeams(Model model) {
@@ -41,11 +50,21 @@ public class TeamController {
     @GetMapping("/admin/add")
     public String addForm(Model model) {
         model.addAttribute("team", new Team());
+        model.addAttribute("countries", countryService.recupererCountries());
+        model.addAttribute("stadiums", stadiumService.recupererStadiums());
         return "admin/teamForm";
     }
 
     @PostMapping("/admin/add")
-    public String addSubmit(@ModelAttribute Team team) {
+    public String addSubmit(@ModelAttribute Team team, @RequestParam(required = false) Integer countryId, @RequestParam(required = false) Integer stadiumId) {
+        if (countryId != null) {
+            Country country = countryService.recupererCountry(countryId);
+            team.setCountry(country);
+        }
+        if (stadiumId != null) {
+            Stadium stadium = stadiumService.recupererStadium(stadiumId);
+            team.setStadium(stadium);
+        }
         teamService.ajouterTeam(team);
         return "redirect:/team/admin";
     }
@@ -55,11 +74,21 @@ public class TeamController {
     public String editForm(@RequestParam Integer id, Model model) {
         Team team = teamService.recupererTeam(id);
         model.addAttribute("team", team);
+        model.addAttribute("countries", countryService.recupererCountries());
+        model.addAttribute("stadiums", stadiumService.recupererStadiums());
         return "admin/teamForm";
     }
 
     @PostMapping("/admin/edit")
-    public String editSubmit(@ModelAttribute Team team) {
+    public String editSubmit(@ModelAttribute Team team, @RequestParam(required = false) Integer countryId, @RequestParam(required = false) Integer stadiumId) {
+        if (countryId != null) {
+            Country country = countryService.recupererCountry(countryId);
+            team.setCountry(country);
+        }
+        if (stadiumId != null) {
+            Stadium stadium = stadiumService.recupererStadium(stadiumId);
+            team.setStadium(stadium);
+        }
         teamService.ajouterTeam(team);
         return "redirect:/team/admin";
     }

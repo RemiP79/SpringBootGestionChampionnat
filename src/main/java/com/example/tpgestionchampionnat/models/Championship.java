@@ -63,6 +63,10 @@ public class Championship {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -149,7 +153,15 @@ public class Championship {
         return teamChampionships;
     }
 
+    public void setTeamChampionships(List<TeamChampionship> teamChampionships) {
+        this.teamChampionships = teamChampionships;
+    }
+
     public List<Day> getDays() {
         return days;
+    }
+
+    public void setDays(List<Day> days) {
+        this.days = days;
     }
 }

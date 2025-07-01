@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Pays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700">Gestion des Pays</h1>
+            <a th:href="@{'/country/admin/add'}" sec:authorize="isAuthenticated()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Ajouter un pays</a>
+        </header>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-100">
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">Nom</th>
+                        <th class="py-2 px-4 border-b">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="country : ${countryList}" class="hover:bg-blue-50">
+                        <td class="py-2 px-4 border-b" th:text="${country.id}">1</td>
+                        <td class="py-2 px-4 border-b" th:text="${country.name}">Nom</td>
+                        <td class="py-2 px-4 border-b">
+                            <a th:href="@{'/country/admin/edit'(id=${country.id})}" sec:authorize="isAuthenticated()" class="text-blue-600 hover:underline font-semibold">Modifier</a>
+                            <form th:action="@{'/country/admin/delete'}" method="post" sec:authorize="isAuthenticated()" style="display:inline">
+                                <input type="hidden" name="id" th:value="${country.id}" />
+                                <button type="submit" class="text-red-600 hover:underline font-semibold ml-2">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html> 

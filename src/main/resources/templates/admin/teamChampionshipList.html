@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Équipes du Championnat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700">Gestion des Équipes du Championnat</h1>
+            <a th:href="@{'/teamchampionship/admin/add'}" sec:authorize="isAuthenticated()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Ajouter une équipe</a>
+        </header>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-100">
+                        <th class="py-2 px-4 border-b">Championnat</th>
+                        <th class="py-2 px-4 border-b">Équipe</th>
+                        <th class="py-2 px-4 border-b">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tc : ${teamChampionshipList}" class="hover:bg-blue-50">
+                        <td class="py-2 px-4 border-b" th:text="${tc.championship.name}">Championnat</td>
+                        <td class="py-2 px-4 border-b" th:text="${tc.team.name}">Équipe</td>
+                        <td class="py-2 px-4 border-b">
+                            <a th:href="@{'/teamchampionship/admin/edit'(championshipId=${tc.championship.id},teamId=${tc.team.id})}" sec:authorize="isAuthenticated()" class="text-blue-600 hover:underline font-semibold">Modifier</a>
+                            <form th:action="@{'/teamchampionship/admin/delete'}" method="post" sec:authorize="isAuthenticated()" style="display:inline">
+                                <input type="hidden" name="championshipId" th:value="${tc.championship.id}" />
+                                <input type="hidden" name="teamId" th:value="${tc.team.id}" />
+                                <button type="submit" class="text-red-600 hover:underline font-semibold ml-2">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html> 

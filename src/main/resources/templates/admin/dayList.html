@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Journées</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700">Gestion des Journées</h1>
+            <a th:href="@{'/day/admin/add'}" sec:authorize="isAuthenticated()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Ajouter une journée</a>
+        </header>
+        <div class="bg-white rounded-2xl shadow p-6">
+            <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-100">
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">Numéro</th>
+                        <th class="py-2 px-4 border-b">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="day : ${dayList}" class="hover:bg-blue-50">
+                        <td class="py-2 px-4 border-b" th:text="${day.id}">1</td>
+                        <td class="py-2 px-4 border-b" th:text="${day.number}">Numéro</td>
+                        <td class="py-2 px-4 border-b">
+                            <a th:href="@{'/day/admin/edit'(id=${day.id})}" sec:authorize="isAuthenticated()" class="text-blue-600 hover:underline font-semibold">Modifier</a>
+                            <form th:action="@{'/day/admin/delete'}" method="post" sec:authorize="isAuthenticated()" style="display:inline">
+                                <input type="hidden" name="id" th:value="${day.id}" />
+                                <button type="submit" class="text-red-600 hover:underline font-semibold ml-2">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html> 

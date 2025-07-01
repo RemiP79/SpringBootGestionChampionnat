@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Ajouter/Modifier Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <main class="flex-1 p-10 flex flex-col items-center">
+        <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-lg">
+            <h1 class="text-2xl font-bold text-blue-700 mb-6">Ajouter / Modifier un Match</h1>
+            <form th:action="@{/game/admin/add}" th:object="${game}" method="post" class="space-y-4">
+                <input type="hidden" th:field="*{id}" />
+                <div>
+                    <label class="block text-gray-700 mb-1">Équipe 1</label>
+                    <select name="team1Id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                        <option value="">Sélectionner une équipe</option>
+                        <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}" th:selected="${game.team1 != null and game.team1.id == team.id}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Équipe 2</label>
+                    <select name="team2Id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                        <option value="">Sélectionner une équipe</option>
+                        <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}" th:selected="${game.team2 != null and game.team2.id == team.id}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Journée</label>
+                    <select name="dayId" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                        <option value="">Sélectionner une journée</option>
+                        <option th:each="day : ${days}" th:value="${day.id}" th:text="${day.number}" th:selected="${game.day != null and game.day.id == day.id}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Points équipe 1</label>
+                    <input type="number" th:field="*{team1Point}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Points équipe 2</label>
+                    <input type="number" th:field="*{team2Point}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Enregistrer</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html> 
