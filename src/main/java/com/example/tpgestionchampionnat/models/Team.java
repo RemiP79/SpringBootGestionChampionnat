@@ -154,9 +154,11 @@ public class Team {
     }
 
     @OneToMany(mappedBy = "team1")
+    @JsonIgnore
     private List<Game> gamesAsTeam1;
 
     @OneToMany(mappedBy = "team2")
+    @JsonIgnore
     private List<Game> gamesAsTeam2;
 
     public Team(String name, LocalDate creationDate, String logo, String coach, String president, String status, String siege, String phone, String webSite, Stadium stadium, Country country, List<TeamChampionship> teamChampionships) {
@@ -181,8 +183,16 @@ public class Team {
         return gamesAsTeam1;
     }
 
+    public void setGamesAsTeam1(List<Game> gamesAsTeam1) {
+        this.gamesAsTeam1 = gamesAsTeam1;
+    }
+
     public List<Game> getGamesAsTeam2() {
         return gamesAsTeam2;
+    }
+
+    public void setGamesAsTeam2(List<Game> gamesAsTeam2) {
+        this.gamesAsTeam2 = gamesAsTeam2;
     }
 }
 

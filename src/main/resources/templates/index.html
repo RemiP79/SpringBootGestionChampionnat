@@ -50,7 +50,27 @@
             </div>
             <div class="bg-white rounded-2xl shadow p-6">
                 <h2 class="text-xl font-semibold mb-4 text-blue-700">Prochaines rencontres</h2>
-                <p class="text-gray-600">Retrouvez ici les prochaines journées et matchs à venir.</p>
+                <div th:if="${championship != null and championship.days != null and !championship.days.isEmpty()}">
+                    <div th:each="day : ${championship.days}" th:if="${day.number <= 3}" class="mb-4 p-3 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-blue-600 mb-2">Journée <span th:text="${day.number}">1</span></h3>
+                        <div th:if="${day.games != null and !day.games.isEmpty()}">
+                            <div th:each="game : ${day.games}" class="text-sm text-gray-700 mb-1">
+                                <span th:text="${game.team1 != null ? game.team1.name : 'TBD'}">Équipe 1</span>
+                                <span class="mx-2">vs</span>
+                                <span th:text="${game.team2 != null ? game.team2.name : 'TBD'}">Équipe 2</span>
+                            </div>
+                        </div>
+                        <div th:if="${day.games == null or day.games.isEmpty()}" class="text-sm text-gray-500">
+                            Aucun match programmé
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a th:href="@{'/championship/jours'(idChampionship=${championship.id})}" class="text-blue-600 hover:underline font-semibold">Voir toutes les journées</a>
+                    </div>
+                </div>
+                <div th:if="${championship == null or championship.days == null or championship.days.isEmpty()}" class="text-gray-500">
+                    Aucune journée programmée.
+                </div>
             </div>
         </section>
     </main>

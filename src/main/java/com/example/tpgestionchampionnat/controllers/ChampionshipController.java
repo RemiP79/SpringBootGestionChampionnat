@@ -35,25 +35,43 @@ public class ChampionshipController {
         // Calcul du classement
         List<TeamChampionship> participations = championship.getTeamChampionships();
         List<ClassementStat> classement = new ArrayList<>();
-        if (participations != null) {
+        if (participations != null && !participations.isEmpty()) {
             for (TeamChampionship tc : participations) {
                 Team team = tc.getTeam();
                 int points = 0, victoires = 0, nuls = 0, defaites = 0;
-                for (TeamChampionship tc2 : participations) {
-                    for (Game game : tc2.getTeam().getGamesAsTeam1()) {
-                        if (game.getDay() != null && game.getDay().getChampionship().getId() == idChampionship) {
-                            if ((game.getTeam1() != null && game.getTeam1().getId() == team.getId()) || (game.getTeam2() != null && game.getTeam2().getId() == team.getId())) {
-                                if (game.getTeam1() != null && game.getTeam2() != null) {
-                                    if (game.getTeam1().getId() == team.getId()) {
-                                        if (game.getTeam1Point() > game.getTeam2Point()) { victoires++; points += championship.getWonPoint(); }
-                                        else if (game.getTeam1Point() < game.getTeam2Point()) { defaites++; points += championship.getLostPoint(); }
-                                        else { nuls++; points += championship.getDrawPoint(); }
-                                    } else if (game.getTeam2().getId() == team.getId()) {
-                                        if (game.getTeam2Point() > game.getTeam1Point()) { victoires++; points += championship.getWonPoint(); }
-                                        else if (game.getTeam2Point() < game.getTeam1Point()) { defaites++; points += championship.getLostPoint(); }
-                                        else { nuls++; points += championship.getDrawPoint(); }
-                                    }
-                                }
+                
+                // Récupérer tous les matchs du championnat
+                List<Game> allGames = new ArrayList<>();
+                for (Day day : championship.getDays()) {
+                    if (day.getGames() != null) {
+                        allGames.addAll(day.getGames());
+                    }
+                }
+                
+                // Calculer les points pour cette équipe
+                for (Game game : allGames) {
+                    if (game.getTeam1() != null && game.getTeam2() != null) {
+                        if (game.getTeam1().getId() == team.getId()) {
+                            if (game.getTeam1Point() > game.getTeam2Point()) { 
+                                victoires++; 
+                                points += championship.getWonPoint(); 
+                            } else if (game.getTeam1Point() < game.getTeam2Point()) { 
+                                defaites++; 
+                                points += championship.getLostPoint(); 
+                            } else { 
+                                nuls++; 
+                                points += championship.getDrawPoint(); 
+                            }
+                        } else if (game.getTeam2().getId() == team.getId()) {
+                            if (game.getTeam2Point() > game.getTeam1Point()) { 
+                                victoires++; 
+                                points += championship.getWonPoint(); 
+                            } else if (game.getTeam2Point() < game.getTeam1Point()) { 
+                                defaites++; 
+                                points += championship.getLostPoint(); 
+                            } else { 
+                                nuls++; 
+                                points += championship.getDrawPoint(); 
                             }
                         }
                     }
@@ -152,25 +170,43 @@ public class ChampionshipController {
             // Calcul du classement (même logique que /classement)
             List<TeamChampionship> participations = championship.getTeamChampionships();
             List<ClassementStat> classement = new ArrayList<>();
-            if (participations != null) {
+            if (participations != null && !participations.isEmpty()) {
                 for (TeamChampionship tc : participations) {
                     Team team = tc.getTeam();
                     int points = 0, victoires = 0, nuls = 0, defaites = 0;
-                    for (TeamChampionship tc2 : participations) {
-                        for (Game game : tc2.getTeam().getGamesAsTeam1()) {
-                            if (game.getDay() != null && game.getDay().getChampionship().getId() == championship.getId()) {
-                                if ((game.getTeam1() != null && game.getTeam1().getId() == team.getId()) || (game.getTeam2() != null && game.getTeam2().getId() == team.getId())) {
-                                    if (game.getTeam1() != null && game.getTeam2() != null) {
-                                        if (game.getTeam1().getId() == team.getId()) {
-                                            if (game.getTeam1Point() > game.getTeam2Point()) { victoires++; points += championship.getWonPoint(); }
-                                            else if (game.getTeam1Point() < game.getTeam2Point()) { defaites++; points += championship.getLostPoint(); }
-                                            else { nuls++; points += championship.getDrawPoint(); }
-                                        } else if (game.getTeam2().getId() == team.getId()) {
-                                            if (game.getTeam2Point() > game.getTeam1Point()) { victoires++; points += championship.getWonPoint(); }
-                                            else if (game.getTeam2Point() < game.getTeam1Point()) { defaites++; points += championship.getLostPoint(); }
-                                            else { nuls++; points += championship.getDrawPoint(); }
-                                        }
-                                    }
+                    
+                    // Récupérer tous les matchs du championnat
+                    List<Game> allGames = new ArrayList<>();
+                    for (Day day : championship.getDays()) {
+                        if (day.getGames() != null) {
+                            allGames.addAll(day.getGames());
+                        }
+                    }
+                    
+                    // Calculer les points pour cette équipe
+                    for (Game game : allGames) {
+                        if (game.getTeam1() != null && game.getTeam2() != null) {
+                            if (game.getTeam1().getId() == team.getId()) {
+                                if (game.getTeam1Point() > game.getTeam2Point()) { 
+                                    victoires++; 
+                                    points += championship.getWonPoint(); 
+                                } else if (game.getTeam1Point() < game.getTeam2Point()) { 
+                                    defaites++; 
+                                    points += championship.getLostPoint(); 
+                                } else { 
+                                    nuls++; 
+                                    points += championship.getDrawPoint(); 
+                                }
+                            } else if (game.getTeam2().getId() == team.getId()) {
+                                if (game.getTeam2Point() > game.getTeam1Point()) { 
+                                    victoires++; 
+                                    points += championship.getWonPoint(); 
+                                } else if (game.getTeam2Point() < game.getTeam1Point()) { 
+                                    defaites++; 
+                                    points += championship.getLostPoint(); 
+                                } else { 
+                                    nuls++; 
+                                    points += championship.getDrawPoint(); 
                                 }
                             }
                         }

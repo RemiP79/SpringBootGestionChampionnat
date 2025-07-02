@@ -9,6 +9,14 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Team getTeam1() {
         return team1;
     }
@@ -26,15 +34,15 @@ public class Game {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idTeam1")
+    @JoinColumn(name = "id_team1")
     private Team team1;
 
     @ManyToOne
-    @JoinColumn(name = "idTeam2")
+    @JoinColumn(name = "id_team2")
     private Team team2;
 
     @ManyToOne
-    @JoinColumn(name = "idDay")
+    @JoinColumn(name = "id_day")
     private Day day;
 
     private int team1Point;
